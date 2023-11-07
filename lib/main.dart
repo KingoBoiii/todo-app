@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,18 +10,65 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          leading: CupertinoButton(
-            onPressed: null,
-            child: Icon(CupertinoIcons.back)
+      home: AppbarExample()
+    );
+  }
+}
+
+class AppbarExample extends StatelessWidget {
+  const AppbarExample({super.key});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('AppBar Demo'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add_alert),
+            tooltip: 'Show Snackbar',
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('This is a snackbar')));
+            },
           ),
-          middle: Text("Navigation Bar"),
-        ),
-        child: Center(
-          child: Text('Hello World!'),
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            tooltip: 'Go to the next page',
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute<void>(
+                builder: (BuildContext context) => const NextPageExample()
+              ));
+            },
+          ),
+        ],
+      ),
+      body: const Center(
+        child: Text(
+          'This is the home page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );
   }
+}
+
+class NextPageExample extends StatelessWidget {
+  const NextPageExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Next page'),
+      ),
+      body: const Center(
+        child: Text(
+          'This is the next page',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+
 }

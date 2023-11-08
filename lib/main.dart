@@ -1,4 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
+
+class ToDo {
+  String todo;
+  bool completed = false;
+  
+  ToDo(this.todo);
+}
+
+class ToDoList {
+  String name;
+  IconData icon;
+  List<ToDo> todos;
+  
+  ToDoList(this.name, this.icon, this.todos);
+}
+
+final List<ToDoList> todoLists = <ToDoList>[
+  ToDoList(
+    'Shopping',
+    Icons.shopping_bag,
+    <ToDo>[
+      ToDo('Rugbrød'),
+      ToDo('Småkage')
+    ] 
+  ),
+  ToDoList(
+    'Gaming',
+    Icons.gamepad,
+    <ToDo>[
+      ToDo('Arma 3')
+    ] 
+  )
+];
 
 void main() {
   runApp(const MainApp());
@@ -10,65 +44,48 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: AppbarExample()
+      home: TodoTabLayout()
     );
   }
 }
 
-class AppbarExample extends StatelessWidget {
-  const AppbarExample({super.key});
-  
+class TodoTabLayout extends StatelessWidget {
+  const TodoTabLayout({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('AppBar Demo'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add_alert),
-            tooltip: 'Show Snackbar',
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('This is a snackbar')));
-            },
+    final List<Tuple2<Tab, Widget>> tabs = todoLists
+      .expand((element) => element.todos.map((e) => Tuple2(
+          Tab(
+            icon: Icon(element.icon),
+            child: Text(element.name)
           ),
-          IconButton(
-            icon: const Icon(Icons.navigate_next),
-            tooltip: 'Go to the next page',
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute<void>(
-                builder: (BuildContext context) => const NextPageExample()
-              ));
-            },
+          Center(
+            child: Text("${e.todo}: ${e.completed}")
+          )
+        )))
+      .toList();
+
+    return DefaultTabController(
+      length: tabs.length,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Tabs Demo'),
+          bottom: TabBar(
+            isScrollable: true,
+            tabs: tabs.map((e) => e.item1).toList()
           ),
-        ],
-      ),
-      body: const Center(
-        child: Text(
-          'This is the home page',
-          style: TextStyle(fontSize: 24),
+        ),
+        drawer: const Drawer(
+          child: SafeArea( 
+            child: Text('Hello World!') 
+          ),
+        ),
+        body: TabBarView(
+          children: tabs.map((e) => e.item2).toList(),
         ),
       ),
     );
   }
-}
-
-class NextPageExample extends StatelessWidget {
-  const NextPageExample({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Next page'),
-      ),
-      body: const Center(
-        child: Text(
-          'This is the next page',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-
 }

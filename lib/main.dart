@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const TodoApp());
@@ -37,7 +41,24 @@ class _TodoListState extends State<TodoList> {
   static int s_NextId = 0;
   final TextEditingController textFieldController = TextEditingController();
 
-  void _addTodo(String todo) {
+  void _addTodo(String todo) async {
+    Uri addTodoEndpointUri = Uri.https('api.todo-app.dev.victorkrogh.dk', 'api/v1/todo/$todo');
+    print(addTodoEndpointUri.toString());
+
+    var response = await http.post(
+      addTodoEndpointUri,
+      headers: <String, String>{
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'X-Api-Key': 'Todo'
+      }
+    );
+
+    print(response.statusCode);
+
+    var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    print(decodedResponse);
+
     setState(() {
       todos.add(Todo(name: todo, completed: false));
     });

@@ -16,7 +16,7 @@ class TodoListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      key: Key(todo.id.toString()),
+      key: Key(todo.id),
       title: Text(todo.text),
       leading: Checkbox(
         onChanged: (newState) {

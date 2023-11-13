@@ -1,6 +1,6 @@
 class Todo {
 
-  int id;
+  String id;
   String text;
   bool completed;
 

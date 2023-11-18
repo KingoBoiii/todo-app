@@ -54,4 +54,17 @@ class TodoCollectionService {
     return TodoCollection.fromJson(jsonDecode(response.body));
   }
 
+  Future<bool> deleteTodoCollectionAsync(TodoCollection todoCollection) async {
+    var response = await http.delete(
+      Uri.https(BaseUrl, "$ApiRoute/${todoCollection.id}"),
+      headers: <String, String>{
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'X-Api-Key': ApiKey
+      }
+    );
+
+    return response.statusCode == 200;
+  }
+
 }

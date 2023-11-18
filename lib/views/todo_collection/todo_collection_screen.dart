@@ -42,7 +42,11 @@ class _TodoCollectionScreenState extends State<TodoCollectionScreen> {
     else if(snapshot.hasData) {
       return TodoCollectionList(
         todoCollections: snapshot.data!,
-        onLongPress: (TodoCollection todoCollection) => _showTodoCollectionDialog(todoCollection)
+        onLongPress: (TodoCollection todoCollection) => _showTodoCollectionDialog(todoCollection),
+        onDeletePress: (todoCollection) {
+          _todoCollectionService.deleteTodoCollectionAsync(todoCollection)
+            .then((value) => setState(() {}));
+        }
       );
     }
     else {

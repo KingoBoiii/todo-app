@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/views/todo_collection/todo_collection_screen.dart';
-import 'package:todo_app/widget/todo_list_page.dart';
 
 void main() async {
   runApp(const TodoApp());

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/models/todo_collection_model.dart';
 import 'package:todo_app/models/todo_model.dart';
 import 'package:todo_app/services/todo_service.dart';
-import 'package:todo_app/views/todo_collection/todo_collection_list_widget.dart';
 
 class TodoScreen extends StatelessWidget {
   TodoScreen({super.key});

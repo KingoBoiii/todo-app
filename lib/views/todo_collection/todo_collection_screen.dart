@@ -14,7 +14,6 @@ class TodoCollectionScreen extends StatefulWidget {
 
 class _TodoCollectionScreenState extends State<TodoCollectionScreen> {
   final TodoCollectionService _todoCollectionService = TodoCollectionService();
-  final TextEditingController _textFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +56,16 @@ class _TodoCollectionScreenState extends State<TodoCollectionScreen> {
     Navigator.of(context).pop();
   }
   
-    Future<void> _showTodoCollectionDialog(TodoCollection? todoCollection) async {
-    _textFieldController.text = todoCollection?.name ?? '';
-
+  Future<void> _showTodoCollectionDialog(TodoCollection? todoCollection) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return todoCollection == null ? 
           AddAlertDialog(
+            title: 'Add Todo Collection',
+            onPreBuild: (textFieldController) {
+              textFieldController.text = '';
+            },
             onAddClicked: (TextEditingController textFieldController) {
               if(textFieldController.text.isEmpty) {
                 return;
@@ -79,6 +80,10 @@ class _TodoCollectionScreenState extends State<TodoCollectionScreen> {
             onCancelClicked: _pop
           ) : 
           UpdateAlertDialog(
+            title: 'Update Todo Collection',
+            onPreBuild: (textEditingController) {
+              textEditingController.text = todoCollection.name;
+            },
             onUpdateClicked: (TextEditingController textFieldController) {
               if(textFieldController.text.isEmpty) {
                 return;

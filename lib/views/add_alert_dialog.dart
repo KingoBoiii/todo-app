@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/views/generic_alert_dialog.dart';
 
 class AddAlertDialog extends GenericAlertDialog {
-  AddAlertDialog({super.key, required this.onAddClicked, required this.onCancelClicked});
+  AddAlertDialog({super.key, super.title = 'Add', required super.onPreBuild, required this.onAddClicked, required this.onCancelClicked});
   
   final void Function(TextEditingController) onAddClicked;
   final void Function() onCancelClicked;

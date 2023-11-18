@@ -19,17 +19,17 @@ class _TodoListPageState extends State<TodoListPage> {
   final TextEditingController textFieldController = TextEditingController();
 
   void _addTodo(String text) {
-    _todoService.addTodoAsync(text);
+    // _todoService.addTodoAsync(text);
     setState(() {});
   }
 
   void _updateTodo(Todo todo) {
-    _todoService.updateTodo(todo); 
+    // _todoService.updateTodoAsync(todo); 
     setState(() {});
   }
 
   void _deleteTodo(Todo todo) {
-    _todoService.deleteTodo(todo);
+    // _todoService.deleteTodo(todo);
     setState(() {});
   }
 

@@ -42,9 +42,9 @@ class TodoService {
     return list;
   }
 
-  Future<Todo> addTodoAsync(String text) async {
+  Future<Todo> addTodoAsync(TodoCollection todoCollection, String text) async {
     var response = await http.post(
-      Uri.https(BaseUrl, "$ApiRoute/$text"),
+      Uri.https(BaseUrl, "$ApiRoute/collections/${todoCollection.id}/todos/$text"),
       headers: <String, String>{
         'accept': 'application/json',
         'content-type': 'application/json',
@@ -55,9 +55,9 @@ class TodoService {
     return Todo.fromJson(jsonDecode(response.body));
   }
 
-  Future<bool> updateTodo(Todo todo) async {
+  Future<bool> updateTodoAsync(TodoCollection todoCollection, Todo todo) async {
     var response = await http.patch(
-      Uri.https(BaseUrl, "$ApiRoute/${todo.id}"),
+      Uri.https(BaseUrl, "$ApiRoute/collections/${todoCollection.id}/todos/${todo.id}"),
       headers: <String, String>{
         'accept': 'application/json',
         'content-type': 'application/json',
@@ -72,9 +72,9 @@ class TodoService {
     return response.statusCode == 200;
   }
 
-  Future<bool> deleteTodo(Todo todo) async {
+  Future<bool> deleteTodoAsync(TodoCollection todoCollection, Todo todo) async {
     var response = await http.delete(
-      Uri.https(BaseUrl, "$ApiRoute/${todo.id}"),
+      Uri.https(BaseUrl, "$ApiRoute/collections/${todoCollection.id}/todos/${todo.id}"),
       headers: <String, String>{
         'accept': 'application/json',
         'content-type': 'application/json',

@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
 abstract class GenericAlertDialog extends StatelessWidget {
-  GenericAlertDialog({super.key});
+  GenericAlertDialog({super.key, required this.title, required this.onPreBuild});
   
+  final String title;
   final MainAxisAlignment actionsAlignment = MainAxisAlignment.spaceBetween;
+
+  final void Function(TextEditingController) onPreBuild;
 
   @protected
   final TextEditingController textFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    onPreBuild(textFieldController);
+
     return AlertDialog(
-      title: const Text('Add todo collection'),
+      title: Text(title),
       content: TextField(
         controller: textFieldController,
         maxLength: 50,

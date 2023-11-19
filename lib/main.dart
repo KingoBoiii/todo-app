@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/providers/app_provider.dart';
+import 'package:todo_app/views/main_layout.dart';
 import 'package:todo_app/views/todo_collection/todo_collection_screen.dart';
+import 'package:todo_app/views/unauth_layout.dart';
 
 void main() async {
   runApp(const TodoApp());
@@ -23,35 +25,16 @@ class TodoApp extends StatelessWidget {
             theme: ThemeData(
               useMaterial3: true
             ),
-            home: Scaffold(
-              appBar: AppBar(
-                title: const Text('To-Do List')
-              ),
-              body: Center(
-                child: IntrinsicWidth(
-                  child: Container(
-                    padding: const EdgeInsets.all(20.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.blueGrey,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                    ),
-                    child:           ElevatedButton.icon(
-                    onPressed: () {
-                      final state = Provider.of<AppProvider>(context, listen: false);
-                      state.signInGoogle();
-                    },
-                    icon: const Icon(Icons.g_mobiledata),
-                    label: const Text("Sign in with Google"),
-                  ),
-                  ),
-                ),
+            home: state.isLoggedIn == false 
+              ? const UnauthLayout()
+              : const MainLayout(
+                body: TodoCollectionScreen()
               )
-            ) 
           );
         }
       ),
     );
-
+/*
     return MaterialApp(
       title: 'To-Do List', 
       theme: ThemeData(
@@ -79,5 +62,6 @@ class TodoApp extends StatelessWidget {
         body: const TodoCollectionScreen() // const TodoListPage()
       )
     );
+*/
   }
 }

@@ -11,27 +11,18 @@ class MainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('To-Do List')
+        title: const Text('To-Do List'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              final state = Provider.of<AppProvider>(context, listen: false);
+              state.signOff();
+            }, 
+            icon: const Icon(Icons.videogame_asset_off)
+          )
+        ],
       ),
-      body: Center(
-        child: IntrinsicWidth(
-          child: Container(
-            padding: const EdgeInsets.all(20.0),
-            decoration: const BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            ),
-            child: ElevatedButton.icon(
-              onPressed: () {
-                final state = Provider.of<AppProvider>(context, listen: false);
-                state.signInGoogle();
-              },
-              icon: const Icon(Icons.g_mobiledata),
-              label: const Text("Sign in with Google"),
-            ),
-          ),
-        ),
-      )
+      body: body
     );
   }
 }

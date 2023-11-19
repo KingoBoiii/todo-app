@@ -28,4 +28,16 @@ class AppProvider extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  signOff() {
+    account.deleteSessions()
+      .then((response) {
+        _isLoggedIn = false;
+        notifyListeners();
+      })
+      .catchError((error) {
+        _isLoggedIn = false;
+        notifyListeners();
+      });
+  }
 }

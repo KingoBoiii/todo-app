@@ -24,6 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="io.appwrite.views.CallbackActivity" android:exported="true">
+        <!-- <activity android:name="com.linusu.flutter_web_auth_2.CallbackActivity" android:exported="true"> -->
+            <intent-filter android:label="android_web_auth">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="appwrite-callback-65592a4d4664cb4bdf01"/>
+            </intent-filter>
+        </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

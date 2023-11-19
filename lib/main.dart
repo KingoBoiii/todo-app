@@ -12,6 +12,10 @@ void main() async {
 class TodoApp extends StatelessWidget {
   const TodoApp({super.key});
 
+  static final ThemeData theme = ThemeData(
+    useMaterial3: true
+  );
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -21,11 +25,9 @@ class TodoApp extends StatelessWidget {
         builder: (context, state, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: true,
-            title: 'To-Do list',
-            theme: ThemeData(
-              useMaterial3: true
-            ),
-            home: state.isLoggedIn == false 
+            title: 'To-Do list awd',
+            theme: theme,
+            home: state.authenticated == false 
               ? const UnauthLayout()
               : const MainLayout(
                 body: TodoCollectionScreen()
